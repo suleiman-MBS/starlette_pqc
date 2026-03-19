@@ -1,0 +1,21 @@
+name: Generate CBOM
+on: [push]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate CBOM
+        uses: PQCA/cbomkit-action@v1
+        id: cbom
+        with:
+          languages: python
+
+      - name: Upload CBOM Result
+        uses: actions/upload-artifact@v4
+        with:
+          name: "CBOM-Report"
+          path: "cbom/"
